@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import {useSelector, useDispatch} from 'react-redux'
 import {storageFav, setRandomActivity, setTypeActivity, setPriceActivity, setFavoriteActivities, setFavTypes} from '../actions'
-import {Button, Select} from 'antd'
+import {Button, Select, Card} from 'antd'
 
 function Home() {
   const randomActivity = useSelector((state) => state.randomActivity);
@@ -74,8 +74,9 @@ function Home() {
   return (
     <div className="App">
     <div>
-    <h1>{randomActivity.activity}</h1>
-    
+    <Card style={{width:300}}>
+    <p>{randomActivity.activity}</p>
+    </Card>
     <Button onClick={()=>generateActivity()}>Generate new activity</Button>
     </div>
 
@@ -94,8 +95,13 @@ function Home() {
 </Select>
 
 <Button onClick={() => generateByType()}>Generate activity</Button>
-<h1>activity: {typeActivity.activity} <br/> 
-type: {typeActivity.type}</h1>
+{typeActivity.activity && 
+<Card style={{width:300}}>
+<p>activity: {typeActivity.activity} </p>
+<p>type: {typeActivity.type}</p>
+</Card>
+}
+
 {typeActivity.activity && (
 <Button onClick={()=>{!favActivities.includes(typeActivity) ? dispatch(setFavoriteActivities(typeActivity)) : alert("Activity already in favorites!")}}>add to favorites</Button>
 )}
@@ -125,8 +131,12 @@ type: {typeActivity.type}</h1>
     </Select>
 
     <Button onClick={() => generateByPrice()}>Generate activity</Button>
-
-    <h1>activity: {priceActivity.activity} <br/> price: {priceActivity.price}</h1>
+{priceActivity.activity && 
+    <Card style={{width:300}}>
+    <p>activity: {priceActivity.activity} </p> 
+    <p>price: {priceActivity.price}</p>
+    </Card>
+}
 {priceActivity.activity && (
 <Button onClick={()=>{!favActivities.includes(priceActivity) ? dispatch(setFavoriteActivities(priceActivity)) : alert("Activity already in favorites!")}}>add to favorites</Button>
 )}
