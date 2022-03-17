@@ -84,7 +84,7 @@ function Home() {
 
 <label htmlFor="types">Choose a type:</label>
 
-<Select style={{ width: 120 }} defaultValue={{ value:"pick a type" }} onChange={(e)=> setType(e.target.value)} id="types">
+<Select style={{ width: 120 }} defaultValue={{ value:"pick a type" }} onChange={(value)=> setType(value)} id="types">
   <Option value="charity">charity</Option>
   <Option value="recreational">recreational</Option>
   <Option value="education">education</Option>
@@ -105,7 +105,7 @@ type: {typeActivity.type}</h1>
     <h2>Generate an activity by price range:</h2>
 <label htmlFor="minPrice">Choose min price:</label>
 
-    <Select style={{ width: 70 }} defaultValue={{value:"0"}} onChange={(e) => setMinPrice(e.target.value)} id="minPrice">
+    <Select style={{ width: 70 }} defaultValue={{value:"0"}} onChange={(value) => setMinPrice(value)} id="minPrice">
     <Option value="0">0</Option>
     <Option value="0.1">0.1</Option>
     <Option value="0.2">0.2</Option>
@@ -115,7 +115,7 @@ type: {typeActivity.type}</h1>
     </Select>
 
     <label htmlFor="maxPrice">Choose max price:</label>
-    <Select style={{ width: 70 }} defaultValue={{value:"0.1"}} onChange={(e) => setMaxPrice(e.target.value)} id="prices">
+    <Select style={{ width: 70 }} defaultValue={{value:"0.1"}} onChange={(value) => setMaxPrice(value)} id="prices">
     <Option value="0.1">0.1</Option>
     <Option value="0.2">0.2</Option>
     <Option value="0.3">0.3</Option>

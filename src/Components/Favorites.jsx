@@ -62,7 +62,7 @@ function Favorites() {
       }
       }}>
     <Input allowClear style={{ width: 200 }} value={searchValue} title="Type an activity name" placeholder='Search by activity name'  onChange={(e)=>setSearchValue(e.target.value)} type="text"/>
-    <Input value="search" style={{ width: 130 }} type="primary"/>
+    <Input value="search" style={{ width: 130 }} type="submit"/>
     
     </form>
 
@@ -77,17 +77,17 @@ function Favorites() {
   }))
 }}>
 Filter by type
-<Select style={{width:140}} defaultValue={{value:"Choose a type"}} onSelect={(e) => console.log(e.target.value)} form="typeForm" onChange={(e)=> setFilteredType(e.target.value)} id="types">
+<Select style={{width:140}} onSelect={(e) => console.log(e)} form="typeForm" onChange={(value)=>setFilteredType(value)} id="types">
 
 {favTypes.map((item) => {
     return(
-      <Option key={Math.floor(Math.random() * 100)} value={item}>{item}</Option>
+      <Option key={Math.floor(Math.random() * 100)} value={item}> {item} </Option>
     )
   })}
 </Select>
-    <Input style={{width:60}} value="Filter" type="submit"/>
+    <Input style={{width:60}} value="Filter" type="submit"/><Button onClick={() => setFilteredFav(favActivities)}>Reset filter</Button>
 </form>
-<Button onClick={() => setFilteredFav(favActivities)}>Reset filter</Button>
+
 
     {favActivities[0] ? (
     <ul>
