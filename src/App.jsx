@@ -11,7 +11,7 @@ function App(){
   const favCounter = useSelector((state) => state.favoriteActivities.length)
 
   return(
-<div>
+<div style={{paddingTop:"2vh"}}>
 <Link to="/">Home / </Link>
 <Badge count={favCounter }>
 <Link to="/favorites">Favorites</Link>

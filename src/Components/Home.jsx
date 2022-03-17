@@ -73,14 +73,14 @@ function Home() {
 
   return (
     <div className="App">
-    <div>
+    <div style={{display:"flex", flexDirection:"column", alignItems:"center"}}>
     <Card style={{width:300}}>
     <p>{randomActivity.activity}</p>
     </Card>
     <Button onClick={()=>generateActivity()}>Generate new activity</Button>
     </div>
 
-    <div>
+    <div style={{display:"flex", flexDirection:"column", alignItems:"center"}}>
     <h2>Select an activity by type</h2>
 
 <label htmlFor="types">Choose a type:</label>
@@ -107,6 +107,7 @@ function Home() {
 )}
 </div>
 
+    <div style={{display:"flex", flexDirection:"column", alignItems:"center"}}>
     <div>
     <h2>Generate an activity by price range:</h2>
 <label htmlFor="minPrice">Choose min price:</label>
@@ -131,6 +132,7 @@ function Home() {
     </Select>
 
     <Button onClick={() => generateByPrice()}>Generate activity</Button>
+    </div>
 {priceActivity.activity && 
     <Card style={{width:300}}>
     <p>activity: {priceActivity.activity} </p> 
