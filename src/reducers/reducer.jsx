@@ -34,7 +34,8 @@ const Reducer = (state = initialState, action) => {
         case "removeFav":
             console.log(action.payload)
             return {...state, 
-                favoriteActivities: state.favoriteActivities.filter((activity) => activity.key != action.payload.key)}
+                favoriteActivities: state.favoriteActivities.filter((activity) => activity.key != action.payload.key),
+            favTypes: state.favTypes.filter((item) => item != action.payload.type)}
 
         case "storageFav":
             console.log(state.favoriteActivities);

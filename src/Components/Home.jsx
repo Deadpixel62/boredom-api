@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import {useSelector, useDispatch} from 'react-redux'
 import {storageFav, setRandomActivity, setTypeActivity, setPriceActivity, setFavoriteActivities, setFavTypes} from '../actions'
+import {Button, Select} from 'antd'
 
 function Home() {
   const randomActivity = useSelector((state) => state.randomActivity);
@@ -13,6 +14,8 @@ function Home() {
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
   const favTypes = useSelector((state) => state.favTypes);
+
+  const {Option} = Select;
 
 
 
@@ -73,7 +76,7 @@ function Home() {
     <div>
     <h1>{randomActivity.activity}</h1>
     
-    <button onClick={()=>generateActivity()}>Generate new activity</button>
+    <Button onClick={()=>generateActivity()}>Generate new activity</Button>
     </div>
 
     <div>
@@ -81,20 +84,20 @@ function Home() {
 
 <label htmlFor="types">Choose a type:</label>
 
-<select onChange={(e)=> setType(e.target.value)} id="types">
-  <option value="charity">charity</option>
-  <option value="recreational">recreational</option>
-  <option value="education">education</option>
-  <option value="social" >social</option>
-  <option value="music" >music</option>
-  <option value="relaxation" >relaxation</option>
-</select>
+<Select style={{ width: 120 }} defaultValue={{ value:"pick a type" }} onChange={(e)=> setType(e.target.value)} id="types">
+  <Option value="charity">charity</Option>
+  <Option value="recreational">recreational</Option>
+  <Option value="education">education</Option>
+  <Option value="social" >social</Option>
+  <Option value="music" >music</Option>
+  <Option value="relaxation" >relaxation</Option>
+</Select>
 
-<button onClick={() => generateByType()}>Generate activity</button>
+<Button onClick={() => generateByType()}>Generate activity</Button>
 <h1>activity: {typeActivity.activity} <br/> 
 type: {typeActivity.type}</h1>
 {typeActivity.activity && (
-<button onClick={()=>{!favActivities.includes(typeActivity) ? dispatch(setFavoriteActivities(typeActivity)) : alert("Activity already in favorites!")}}>add to favorites</button>
+<Button onClick={()=>{!favActivities.includes(typeActivity) ? dispatch(setFavoriteActivities(typeActivity)) : alert("Activity already in favorites!")}}>add to favorites</Button>
 )}
 </div>
 
@@ -102,30 +105,30 @@ type: {typeActivity.type}</h1>
     <h2>Generate an activity by price range:</h2>
 <label htmlFor="minPrice">Choose min price:</label>
 
-    <select onChange={(e) => setMinPrice(e.target.value)} id="minPrice">
-    <option>0</option>
-    <option>0.1</option>
-    <option>0.2</option>
-    <option>0.3</option>
-    <option>0.4</option>
-    <option>0.5</option>
-    </select>
+    <Select style={{ width: 70 }} defaultValue={{value:"0"}} onChange={(e) => setMinPrice(e.target.value)} id="minPrice">
+    <Option value="0">0</Option>
+    <Option >0.1</Option>
+    <Option>0.2</Option>
+    <Option>0.3</Option>
+    <Option>0.4</Option>
+    <Option>0.5</Option>
+    </Select>
 
     <label htmlFor="maxPrice">Choose max price:</label>
-    <select onChange={(e) => setMaxPrice(e.target.value)} id="prices">
-    <option>0.1</option>
-    <option>0.2</option>
-    <option>0.3</option>
-    <option>0.4</option>
-    <option>0.5</option>
-    <option>0.6</option>
-    </select>
+    <Select style={{ width: 70 }} defaultValue={{value:"0.1"}} onChange={(e) => setMaxPrice(e.target.value)} id="prices">
+    <Option value="0.1">0.1</Option>
+    <Option>0.2</Option>
+    <Option>0.3</Option>
+    <Option>0.4</Option>
+    <Option>0.5</Option>
+    <Option>0.6</Option>
+    </Select>
 
-    <button onClick={() => generateByPrice()}>Generate activity</button>
+    <Button onClick={() => generateByPrice()}>Generate activity</Button>
 
     <h1>activity: {priceActivity.activity} <br/> price: {priceActivity.price}</h1>
 {priceActivity.activity && (
-<button onClick={()=>{!favActivities.includes(priceActivity) ? dispatch(setFavoriteActivities(priceActivity)) : alert("Activity already in favorites!")}}>add to favorites</button>
+<Button onClick={()=>{!favActivities.includes(priceActivity) ? dispatch(setFavoriteActivities(priceActivity)) : alert("Activity already in favorites!")}}>add to favorites</Button>
 )}
     </div>
 

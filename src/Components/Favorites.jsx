@@ -2,6 +2,7 @@ import React from 'react'
 import {useEffect, useState } from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import {storageFav, removeFav, setFavTypes} from '../actions'
+import {Button, Select, Input} from 'antd'
 
 
 function Favorites() {
@@ -11,6 +12,7 @@ function Favorites() {
     const dispatch = useDispatch();
     const [searchValue, setSearchValue] = useState("");
     const [filteredType, setFilteredType] = useState("");
+    const {Option} = Select;
 
 
 
@@ -49,18 +51,18 @@ function Favorites() {
     <div>
     <h2>Favorite Activities:</h2>
     <form onSubmit={(e) => {
-      e.preventDefault();
-      if(searchValue.trim(" ").length=== 0){
-       setFilteredFav(favActivities)
-      } else {
-      setFilteredFav(favActivities.filter((item) => {
-        console.log(item)
-        return item.activity.toLowerCase().includes(searchValue)
-      }))
-    }
-    }}>
-    <input value={searchValue} title="Type an activity name" placeholder='Search by activity name'  onChange={(e)=>setSearchValue(e.target.value)} type="text"/>
-    <input value="search" type="submit"/>
+        e.preventDefault();
+        if(searchValue.trim(" ").length=== 0){
+         setFilteredFav(favActivities)
+        } else {
+        setFilteredFav(favActivities.filter((item) => {
+          console.log(item)
+          return item.activity.toLowerCase().includes(searchValue.toLowerCase())
+        }))
+      }
+      }}>
+    <Input allowClear style={{ width: 200 }} value={searchValue} title="Type an activity name" placeholder='Search by activity name'  onChange={(e)=>setSearchValue(e.target.value)} type="text"/>
+    <Input value="search" style={{ width: 130 }} type="primary"/>
     
     </form>
 
@@ -75,24 +77,24 @@ function Favorites() {
   }))
 }}>
 Filter by type
-<select form="typeForm" onChange={(e)=> setFilteredType(e.target.value)} id="types">
-<option value="Choose type">- Choose type -</option>
+<Select style={{width:140}} defaultValue={{value:"Choose a type"}} onSelect={(e) => console.log(e.target.value)} form="typeForm" onChange={(e)=> setFilteredType(e.target.value)} id="types">
+
 {favTypes.map((item) => {
     return(
-      <option key={Math.floor(Math.random() * 100)} value={item}>{item}</option>
+      <Option key={Math.floor(Math.random() * 100)} value={item}>{item}</Option>
     )
   })}
-</select>
-    <input value="Filter" type="submit"/>
+</Select>
+    <Input style={{width:60}} value="Filter" type="submit"/>
 </form>
-<button onClick={() => setFilteredFav(favActivities)}>Reset filter</button>
+<Button onClick={() => setFilteredFav(favActivities)}>Reset filter</Button>
 
     {favActivities[0] ? (
     <ul>
     
     {filteredFav.map((item) => {
       return (
-        <li key={item.key}>{item.activity} <button onClick={() => dispatch(removeFav(item))}>Remove from favorites</button></li>
+        <li key={item.key}>{item.activity} <Button onClick={() => dispatch(removeFav(item))}>Remove from favorites</Button></li>
       )
     })}
     </ul>
