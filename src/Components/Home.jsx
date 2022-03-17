@@ -107,21 +107,21 @@ type: {typeActivity.type}</h1>
 
     <Select style={{ width: 70 }} defaultValue={{value:"0"}} onChange={(e) => setMinPrice(e.target.value)} id="minPrice">
     <Option value="0">0</Option>
-    <Option >0.1</Option>
-    <Option>0.2</Option>
-    <Option>0.3</Option>
-    <Option>0.4</Option>
-    <Option>0.5</Option>
+    <Option value="0.1">0.1</Option>
+    <Option value="0.2">0.2</Option>
+    <Option value="0.3">0.3</Option>
+    <Option value="0.4">0.4</Option>
+    <Option value="0.5">0.5</Option>
     </Select>
 
     <label htmlFor="maxPrice">Choose max price:</label>
     <Select style={{ width: 70 }} defaultValue={{value:"0.1"}} onChange={(e) => setMaxPrice(e.target.value)} id="prices">
     <Option value="0.1">0.1</Option>
-    <Option>0.2</Option>
-    <Option>0.3</Option>
-    <Option>0.4</Option>
-    <Option>0.5</Option>
-    <Option>0.6</Option>
+    <Option value="0.2">0.2</Option>
+    <Option value="0.3">0.3</Option>
+    <Option value="0.4">0.4</Option>
+    <Option value="0.5">0.5</Option>
+    <Option value="0.6">0.6</Option>
     </Select>
 
     <Button onClick={() => generateByPrice()}>Generate activity</Button>
