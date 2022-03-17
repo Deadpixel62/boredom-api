@@ -3,6 +3,7 @@ const initialState = {
     typeActivity:{},
     priceActivity:{},
     favoriteActivities:[],
+    favTypes:[],
 }
 
 const Reducer = (state = initialState, action) => {
@@ -24,7 +25,10 @@ const Reducer = (state = initialState, action) => {
             return {...state, priceActivity: action.payload} 
             
         case "setFavoriteActivities":
-            console.log(state.favoriteActivities)
+            console.log(action.payload.type);
+            if(!state.favTypes.includes(action.payload.type)){
+                state.favTypes.push(action.payload.type)
+            }
             return {...state, favoriteActivities: [...state.favoriteActivities , action.payload]} 
             
         case "removeFav":
@@ -35,7 +39,11 @@ const Reducer = (state = initialState, action) => {
         case "storageFav":
             console.log(state.favoriteActivities);
             return{...state,
-            favoriteActivities: action.payload}        
+            favoriteActivities: action.payload};
+            
+        case "setFavTypes":
+            console.log(action.payload);
+            return{...state, favTypes : action.payload}    
 
         default:
             return state;    

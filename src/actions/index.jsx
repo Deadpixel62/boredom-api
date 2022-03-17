@@ -45,3 +45,10 @@ export const storageFav = (favList) => {
         payload: favList
     }
 }
+
+export const setFavTypes = (favType) => {
+    return {
+        type: "setFavTypes",
+        payload: favType
+    }
+}

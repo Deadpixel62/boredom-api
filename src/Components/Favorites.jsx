@@ -1,52 +1,48 @@
 import React from 'react'
 import {useEffect, useState } from 'react'
 import {useSelector, useDispatch} from 'react-redux'
-import {storageFav, removeFav} from '../actions'
+import {storageFav, removeFav, setFavTypes} from '../actions'
 
 
 function Favorites() {
     const favActivities = useSelector((state) => state.favoriteActivities);
+    const favTypes = useSelector((state) => state.favTypes);
     const [filteredFav, setFilteredFav] = useState(favActivities)
     const dispatch = useDispatch();
     const [searchValue, setSearchValue] = useState("");
     const [filteredType, setFilteredType] = useState("");
-    const [typeField, setTypeField] = useState([]);
 
 
 
     useEffect(() =>{
         const favs = localStorage.getItem('favorites-list');
+        const types = localStorage.getItem('favorite-types');
         if(favs) {
           dispatch(storageFav(JSON.parse(favs)))
+        };
+        if(types) {
+            dispatch(setFavTypes(JSON.parse(types)));
         }
           }, [])
         
           useEffect(()=>{
-            localStorage.setItem('favorites-list', JSON.stringify(favActivities))
+            localStorage.setItem('favorites-list', JSON.stringify(favActivities));
+            localStorage.setItem('favorite-types', JSON.stringify(favTypes));
           })
 
     useEffect(() => {
         let mounted = true;
         if(mounted){
-          setFilteredFav(favActivities)
+          setFilteredFav(favActivities);
+
         }
         return() => {
           mounted = false
         }
       } ,[favActivities]);
 
-    useEffect(() => {
-        let mounted = true;
-        if(mounted) {
-          favActivities.map((item) => {
-            if(!typeField.includes(item.type)){
-              setTypeField([...typeField, item.type])
-            } else {
-              console.log("type already exists.")
-            }
-          })
-        }
-      }, [favActivities])
+
+
 
 
   return (
@@ -81,11 +77,11 @@ function Favorites() {
 Filter by type
 <select form="typeForm" onChange={(e)=> setFilteredType(e.target.value)} id="types">
 <option value="Choose type">- Choose type -</option>
-{typeField.map((item) => {
-  return(
-    <option key={Math.floor(Math.random() * 100)} value={item}>{item}</option>
-  )
-})}
+{favTypes.map((item) => {
+    return(
+      <option key={Math.floor(Math.random() * 100)} value={item}>{item}</option>
+    )
+  })}
 </select>
     <input value="Filter" type="submit"/>
 </form>
@@ -104,6 +100,7 @@ Filter by type
     : "Add activities to your favorites."
   }
     </div>
+    
   )
 }
 

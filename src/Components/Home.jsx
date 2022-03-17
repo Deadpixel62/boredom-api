@@ -1,39 +1,43 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import {useSelector, useDispatch} from 'react-redux'
-import {storageFav, setRandomActivity, setTypeActivity, setPriceActivity, setFavoriteActivities} from '../actions'
+import {storageFav, setRandomActivity, setTypeActivity, setPriceActivity, setFavoriteActivities, setFavTypes} from '../actions'
 
 function Home() {
   const randomActivity = useSelector((state) => state.randomActivity);
   const typeActivity = useSelector((state) => state.typeActivity);
   const priceActivity = useSelector((state) => state.priceActivity);
   const favActivities = useSelector((state) => state.favoriteActivities);
-  const [filteredFav, setFilteredFav] = useState(favActivities)
   const dispatch = useDispatch();
   const [type, setType] = useState("");
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
-  const [searchValue, setSearchValue] = useState("");
-  const [filteredType, setFilteredType] = useState("");
-  const [typeField, setTypeField] = useState([]);
+  const favTypes = useSelector((state) => state.favTypes);
 
 
+
+ 
   useEffect(() =>{
-const favs = localStorage.getItem('favorites-list');
-if(favs) {
-  dispatch(storageFav(JSON.parse(favs)))
-}
-  }, [])
-
-  useEffect(()=>{
-    localStorage.setItem('favorites-list', JSON.stringify(favActivities))
-  }, [favActivities])
+    const favs = localStorage.getItem('favorites-list');
+    const types = localStorage.getItem('favorite-types');
+    if(favs) {
+      dispatch(storageFav(JSON.parse(favs)))
+    };
+    if(types) {
+        dispatch(setFavTypes(JSON.parse(types)))
+    }
+      }, [])
+    
+      useEffect(()=>{
+        localStorage.setItem('favorites-list', JSON.stringify(favActivities));
+        localStorage.setItem('favorite-types', JSON.stringify(favTypes));
+      })
 
   useEffect(() => {
     let mounted = true;
 
     if(mounted){
-      axios.get('http://www.boredapi.com/api/activity/')
+      axios.get('https://www.boredapi.com/api/activity/')
       .then((res) => dispatch(setRandomActivity(res.data)))
     }
     return () => {
@@ -47,14 +51,14 @@ if(favs) {
 
 
   const generateActivity = () => {
-    axios.get('http://www.boredapi.com/api/activity/')
+    axios.get('https://www.boredapi.com/api/activity/')
     .then((res) => dispatch(setRandomActivity(res.data)))
   }
 
   const generateByType = () => {
-    axios.get(`http://www.boredapi.com/api/activity/?type=${type}`)
+    axios.get(`https://www.boredapi.com/api/activity/?type=${type}`)
     .then((res) => dispatch(setTypeActivity(res.data)));
-    setType("")
+    
   }
 
   const generateByPrice = () => {
