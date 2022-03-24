@@ -9,6 +9,7 @@ import {
   setFavoriteActivities,
   setFavTypes,
   getActiveUser,
+  setFavCount,
 } from "../actions";
 import { Button, Select, Card } from "antd";
 

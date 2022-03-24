@@ -35,6 +35,7 @@ function Login() {
       .post("https://boredom-client.herokuapp.com/login", user)
       .then((res) => {
         dispatch(getActiveUser(res.data));
+        navigate("/");
         localStorage.setItem("user", JSON.stringify(res.data));
         axios
           .get(`https://boredom-client.herokuapp.com/user/${res.data.userId}`)

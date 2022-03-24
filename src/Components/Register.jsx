@@ -1,12 +1,15 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { getActiveUser, logout } from "../actions";
 import axios from "axios";
 
 function Register() {
   const [user, setUser] = useState({ email: "", password: "" });
   const [loggedIn, setloggedIn] = useState();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const activeUser = localStorage.getItem("user");
