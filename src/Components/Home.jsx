@@ -32,7 +32,7 @@ function Home() {
       const foundUser = JSON.parse(activeUser);
       dispatch(getActiveUser(foundUser));
       axios
-        .get(`http://localhost:5000/user/${foundUser.userId}`)
+        .get(`https://boredom-client.herokuapp.com/user/${foundUser.userId}`)
         .then((res) => dispatch(setFavCount(res.data)));
     }
   }, []);

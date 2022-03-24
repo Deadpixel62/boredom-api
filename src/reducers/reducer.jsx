@@ -47,12 +47,12 @@ const Reducer = (state = initialState, action) => {
 
     case "setFavoriteActivities":
       axios
-        .post("http://localhost:5000/addFav", action.payload)
+        .post("https://boredom-client.herokuapp.com/addFav", action.payload)
         .then((res) => {
           let activityId = myData(res.data);
           axios
             .put(
-              `http://localhost:5000/users/${state.loggedInUser.userId}/fav/${activityId}`
+              `https://boredom-client.herokuapp.com/users/${state.loggedInUser.userId}/fav/${activityId}`
             )
             .then((res) => console.log(res))
             .catch((err) => console.log(err));
@@ -69,7 +69,7 @@ const Reducer = (state = initialState, action) => {
       console.log(action.payload);
       axios
         .put(
-          `http://localhost:5000/users/removeFav/${state.loggedInUser.userId}/fav/${action.payload._id}`
+          `https://boredom-client.herokuapp.com/users/removeFav/${state.loggedInUser.userId}/fav/${action.payload._id}`
         )
         .then((res) => console.log(res));
       return {

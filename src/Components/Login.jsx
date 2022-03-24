@@ -19,7 +19,7 @@ function Login() {
       const foundUser = JSON.parse(activeUser);
       dispatch(getActiveUser(foundUser));
       axios
-        .get(`http://localhost:5000/user/${foundUser.userId}`)
+        .get(`https://boredom-client.herokuapp.com/user/${foundUser.userId}`)
         .then((res) => {
           setUser(res.data);
           dispatch(setFavCount(res.data));
@@ -32,12 +32,12 @@ function Login() {
     e.preventDefault();
 
     axios
-      .post("http://localhost:5000/login", user)
+      .post("https://boredom-client.herokuapp.com/login", user)
       .then((res) => {
         dispatch(getActiveUser(res.data));
         localStorage.setItem("user", JSON.stringify(res.data));
         axios
-          .get(`http://localhost:5000/user/${res.data.userId}`)
+          .get(`https://boredom-client.herokuapp.com/user/${res.data.userId}`)
           .then((res) => {
             setUser(res.data);
             dispatch(setFavCount(res.data));

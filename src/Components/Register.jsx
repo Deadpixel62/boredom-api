@@ -14,7 +14,7 @@ function Register() {
       const foundUser = JSON.parse(activeUser);
       dispatch(getActiveUser(foundUser));
       axios
-        .get(`http://localhost:5000/user/${foundUser.userId}`)
+        .get(`https://boredom-client.herokuapp.com/user/${foundUser.userId}`)
         .then((res) => setloggedIn(res.data));
     }
   }, []);
@@ -22,7 +22,7 @@ function Register() {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:5000/signup", user)
+      .post("https://boredom-client.herokuapp.com/signup", user)
       .then((res) => navigate("/login"));
   };
 

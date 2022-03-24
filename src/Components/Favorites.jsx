@@ -20,7 +20,7 @@ function Favorites() {
     if (activeUser) {
       const foundUser = JSON.parse(activeUser);
       axios
-        .get(`http://localhost:5000/user/${foundUser.userId}`)
+        .get(`https://boredom-client.herokuapp.com/user/${foundUser.userId}`)
         .then((res) => dispatch(storageFav(res.data.favList)));
     }
   }, []);
