@@ -1,54 +1,97 @@
+import axios from "axios";
+
 const initialState = {
-    randomActivity: {},
-    typeActivity:{},
-    priceActivity:{},
-    favoriteActivities:[],
-    favTypes:[],
-}
+  randomActivity: {},
+  typeActivity: {},
+  priceActivity: {},
+  favoriteActivities: [],
+  favTypes: [],
+  loggedInUser: {},
+  favCount: 0,
+};
+
+const myData = function (data) {
+  let myId;
+  myId = data.newFav._id;
+  console.log(myId);
+  return myId;
+};
+
+const myToken =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjM4OWUzM2I0M2FiZWFhYjQxZDM2MzAiLCJpYXQiOjE2NDgwNTA2NzUsImV4cCI6MTY0ODA2MzI3NX0.9eMWcs7iHRhV05Wvc_Wno_VI3gmKfbYrEnQQtvM0gsY";
 
 const Reducer = (state = initialState, action) => {
-    switch(action.type){
-        case "incrementCounter":
-            console.log(action)
-            return {...state, count: state.count + 1}
+  switch (action.type) {
+    case "getActiveUser":
+      console.log(action);
+      return { ...state, loggedInUser: action.payload };
 
-        case "setRandomActivity":
-            console.log(action.payload)
-            return {...state, randomActivity: action.payload}
-            
-        case "setTypeActivity":
-            console.log(action.payload)
-            return {...state, typeActivity: action.payload} 
-            
-        case "setPriceActivity":
-            console.log(action.payload)
-            return {...state, priceActivity: action.payload} 
-            
-        case "setFavoriteActivities":
-            console.log(action.payload.type);
-            if(!state.favTypes.includes(action.payload.type)){
-                state.favTypes.push(action.payload.type)
-            }
-            return {...state, favoriteActivities: [...state.favoriteActivities , action.payload]} 
-            
-        case "removeFav":
-            console.log(action.payload)
-            return {...state, 
-                favoriteActivities: state.favoriteActivities.filter((activity) => activity.key != action.payload.key),
-            favTypes: state.favTypes.filter((item) => item != action.payload.type)}
+    case "logout":
+      return { ...state, loggedInUser: {}, favCount: 0 };
 
-        case "storageFav":
-            console.log(state.favoriteActivities);
-            return{...state,
-            favoriteActivities: action.payload};
-            
-        case "setFavTypes":
-            console.log(action.payload);
-            return{...state, favTypes : action.payload}    
+    case "setFavCount":
+      console.log(action);
+      return { ...state, favCount: action.payload.favList.length };
 
-        default:
-            return state;    
-    }
-}
+    case "setRandomActivity":
+      console.log(action.payload);
+      return { ...state, randomActivity: action.payload };
+
+    case "setTypeActivity":
+      console.log(action.payload);
+      return { ...state, typeActivity: action.payload };
+
+    case "setPriceActivity":
+      console.log(action.payload);
+      return { ...state, priceActivity: action.payload };
+
+    case "setFavoriteActivities":
+      axios
+        .post("http://localhost:5000/addFav", action.payload)
+        .then((res) => {
+          let activityId = myData(res.data);
+          axios
+            .put(
+              `http://localhost:5000/users/${state.loggedInUser.userId}/fav/${activityId}`
+            )
+            .then((res) => console.log(res))
+            .catch((err) => console.log(err));
+        })
+        .catch((err) => console.log(err));
+
+      return {
+        ...state,
+        favoriteActivities: [...state.favoriteActivities, action.payload],
+        favCount: state.favCount + 1,
+      };
+
+    case "removeFav":
+      console.log(action.payload);
+      axios
+        .put(
+          `http://localhost:5000/users/removeFav/${state.loggedInUser.userId}/fav/${action.payload._id}`
+        )
+        .then((res) => console.log(res));
+      return {
+        ...state,
+        favoriteActivities: state.favoriteActivities.filter(
+          (activity) => activity._id != action.payload._id
+        ),
+        favTypes: state.favTypes.filter((item) => item != action.payload.type),
+        favCount: state.favCount - 1,
+      };
+
+    case "storageFav":
+      console.log(state.favoriteActivities);
+      return { ...state, favoriteActivities: action.payload };
+
+    case "setFavTypes":
+      console.log(action.payload);
+      return { ...state, favTypes: action.payload };
+
+    default:
+      return state;
+  }
+};
 
 export default Reducer;
