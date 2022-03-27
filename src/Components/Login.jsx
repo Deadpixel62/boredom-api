@@ -57,20 +57,20 @@ function Login() {
 
   if (user.email) {
     return (
-      <div>
+      <div style={{ marginBottom: "40vh" }}>
         {user.email} is loggged in
         <button onClick={handleLogout}>logout</button>
-        <div>
+        <ul style={{ listStyleType: "none", margin: "0" }}>
           {user.favList.map((item) => {
             return <li key={item._id}>{item.activity}</li>;
           })}
-        </div>
+        </ul>
       </div>
     );
   }
 
   return (
-    <div style={{ display: "flex", justifyContent: "center" }}>
+    <div className="App" style={{ display: "flex", justifyContent: "center" }}>
       <form
         style={{ display: "flex", flexDirection: "column", width: "50%" }}
         onSubmit={(e) => handleSubmit(e)}

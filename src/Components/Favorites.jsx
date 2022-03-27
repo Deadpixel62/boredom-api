@@ -126,8 +126,11 @@ function Favorites() {
                 }}
               >
                 {item.activity}{" "}
-                <Button onClick={() => dispatch(removeFav(item))}>
-                  Remove from favorites
+                <Button
+                  style={{ width: 100 }}
+                  onClick={() => dispatch(removeFav(item))}
+                >
+                  Delete
                 </Button>
               </li>
             );

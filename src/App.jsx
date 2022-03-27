@@ -69,9 +69,6 @@ function App() {
           justifyContent: "center",
           alignContent: "center",
           backgroundColor: "#DFF6FF",
-          position: "fixed",
-          bottom: "0",
-          width: "100%",
           padding: "1rem",
           color: "#2FA4FF",
         }}

@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  height: 80vh;
 }
 
 .App-logo {
@@ -44,3 +45,5 @@ button {
 nav{
   padding: 15px;
 }
+
+

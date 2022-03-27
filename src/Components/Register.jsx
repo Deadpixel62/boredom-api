@@ -37,7 +37,7 @@ function Register() {
 
   if (loggedIn) {
     return (
-      <div>
+      <div className="App">
         {loggedIn.email} is logged in, please logout to register a new account.
         <button onClick={handleLogout}>logout</button>
       </div>
@@ -45,7 +45,7 @@ function Register() {
   }
 
   return (
-    <div style={{ display: "flex", justifyContent: "center" }}>
+    <div className="App" style={{ display: "flex", justifyContent: "center" }}>
       <form
         style={{ display: "flex", flexDirection: "column", width: "50%" }}
         onSubmit={(e) => handleSubmit(e)}
