@@ -94,7 +94,7 @@ function Favorites() {
         >
           {favTypes.map((item) => {
             return (
-              <Option key={Math.floor(Math.random() * 100)} value={item}>
+              <Option key={item._id} value={item}>
                 {" "}
                 {item}{" "}
               </Option>

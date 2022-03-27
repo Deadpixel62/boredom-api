@@ -17,10 +17,9 @@ const myData = function (data) {
   return myId;
 };
 
-const myToken =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjM4OWUzM2I0M2FiZWFhYjQxZDM2MzAiLCJpYXQiOjE2NDgwNTA2NzUsImV4cCI6MTY0ODA2MzI3NX0.9eMWcs7iHRhV05Wvc_Wno_VI3gmKfbYrEnQQtvM0gsY";
-
 const Reducer = (state = initialState, action) => {
+  let myToken = state.loggedInUser.token;
+
   switch (action.type) {
     case "getActiveUser":
       console.log(action);
@@ -47,7 +46,9 @@ const Reducer = (state = initialState, action) => {
 
     case "setFavoriteActivities":
       axios
-        .post("https://boredom-client.herokuapp.com/addFav", action.payload)
+        .post("http://localhost:5000/addFav", action.payload, {
+          headers: { Authorization: `Bearer ${myToken}` },
+        })
         .then((res) => {
           let activityId = myData(res.data);
           let user = {
@@ -56,7 +57,9 @@ const Reducer = (state = initialState, action) => {
           };
           console.log(user);
           axios
-            .put(`http://localhost:5000/users/addFavorite`, user)
+            .put(`http://localhost:5000/users/addFavorite`, user, {
+              headers: { Authorization: `Bearer ${myToken}` },
+            })
             .then((res) => console.log(res))
             .catch((err) => console.log(err));
         })
@@ -69,15 +72,20 @@ const Reducer = (state = initialState, action) => {
       };
 
     case "removeFav":
-      console.log(action.payload);
+      console.log("===========================");
+      console.log(state.loggedInUser);
 
       const user = {
         userId: state.loggedInUser.userId,
         activityId: action.payload._id,
       };
+
       console.log(user);
       axios
-        .delete(`http://localhost:5000/users/removeFav`, { data: user })
+        .delete(`http://localhost:5000/users/removeFav`, {
+          headers: { Authorization: `Bearer ${myToken}` },
+          data: user,
+        })
         .then((res) => console.log(res))
         .catch((err) => console.log(err));
       return {
