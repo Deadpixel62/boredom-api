@@ -67,11 +67,16 @@ const Reducer = (state = initialState, action) => {
 
     case "removeFav":
       console.log(action.payload);
+
+      const user = {
+        userId: state.loggedInUser.userId,
+        activityId: action.payload._id,
+      };
+      console.log(user);
       axios
-        .put(
-          `https://boredom-client.herokuapp.com/users/removeFav/${state.loggedInUser.userId}/fav/${action.payload._id}`
-        )
-        .then((res) => console.log(res));
+        .delete(`http://localhost:5000/users/removeFav`, { data: user })
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err));
       return {
         ...state,
         favoriteActivities: state.favoriteActivities.filter(
