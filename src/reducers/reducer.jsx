@@ -50,10 +50,13 @@ const Reducer = (state = initialState, action) => {
         .post("https://boredom-client.herokuapp.com/addFav", action.payload)
         .then((res) => {
           let activityId = myData(res.data);
+          let user = {
+            userId: state.loggedInUser.userId,
+            activityId,
+          };
+          console.log(user);
           axios
-            .put(
-              `https://boredom-client.herokuapp.com/users/${state.loggedInUser.userId}/fav/${activityId}`
-            )
+            .put(`http://localhost:5000/users/addFavorite`, user)
             .then((res) => console.log(res))
             .catch((err) => console.log(err));
         })
