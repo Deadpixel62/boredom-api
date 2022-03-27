@@ -36,6 +36,8 @@ function App() {
           display: "flex",
           justifyContent: "flex-end",
           gap: "12px",
+          backgroundColor: "#DFF6FF",
+          marginBottom: "2rem",
         }}
       >
         <div>
@@ -61,6 +63,21 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
       </Routes>
+      <footer
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignContent: "center",
+          backgroundColor: "#DFF6FF",
+          position: "fixed",
+          bottom: "0",
+          width: "100%",
+          padding: "1rem",
+          color: "#2FA4FF",
+        }}
+      >
+        Boredom App - Deadpixel©
+      </footer>
     </div>
   );
 }

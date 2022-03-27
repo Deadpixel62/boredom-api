@@ -115,21 +115,23 @@ function Home() {
 
         <label htmlFor="types">Choose a type:</label>
 
-        <Select
-          style={{ width: 120 }}
-          defaultValue={{ value: "pick a type" }}
-          onChange={(value) => setType(value)}
-          id="types"
-        >
-          <Option value="charity">charity</Option>
-          <Option value="recreational">recreational</Option>
-          <Option value="education">education</Option>
-          <Option value="social">social</Option>
-          <Option value="music">music</Option>
-          <Option value="relaxation">relaxation</Option>
-        </Select>
+        <div style={{ display: "flex" }}>
+          <Select
+            style={{ width: 120 }}
+            defaultValue={{ value: "pick a type" }}
+            onChange={(value) => setType(value)}
+            id="types"
+          >
+            <Option value="charity">charity</Option>
+            <Option value="recreational">recreational</Option>
+            <Option value="education">education</Option>
+            <Option value="social">social</Option>
+            <Option value="music">music</Option>
+            <Option value="relaxation">relaxation</Option>
+          </Select>
 
-        <Button onClick={() => generateByType()}>Generate activity</Button>
+          <Button onClick={() => generateByType()}>Generate activity</Button>
+        </div>
         {typeActivity.activity && (
           <Card style={{ width: 300 }}>
             <p>activity: {typeActivity.activity} </p>
