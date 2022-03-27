@@ -45,7 +45,7 @@ function Register() {
   }
 
   return (
-    <div>
+    <div style={{ display: "flex", justifyContent: "center" }}>
       <form
         style={{ display: "flex", flexDirection: "column", width: "50%" }}
         onSubmit={(e) => handleSubmit(e)}

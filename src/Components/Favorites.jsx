@@ -42,7 +42,7 @@ function Favorites() {
   }, [favActivities]);
 
   return (
-    <div>
+    <div style={{ padding: "2rem" }}>
       <h2>Favorite Activities:</h2>
       <form
         onSubmit={(e) => {
@@ -63,7 +63,9 @@ function Favorites() {
       >
         <Input
           allowClear
-          style={{ width: 200 }}
+          style={{
+            width: 200,
+          }}
           value={searchValue}
           title="Type an activity name"
           placeholder="Search by activity name"
@@ -109,10 +111,20 @@ function Favorites() {
       </form>
 
       {favActivities[0] ? (
-        <ul>
+        <ul style={{ marginTop: "1rem" }}>
           {filteredFav.map((item) => {
             return (
-              <li key={item._id}>
+              <li
+                key={item._id}
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  backgroundColor: "#f5f5f5",
+                  marginBottom: "4px",
+                  alignItems: "center",
+                  paddingLeft: "6px",
+                }}
+              >
                 {item.activity}{" "}
                 <Button onClick={() => dispatch(removeFav(item))}>
                   Remove from favorites
