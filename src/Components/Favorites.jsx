@@ -13,6 +13,7 @@ function Favorites() {
   const [searchValue, setSearchValue] = useState("");
   const [filteredType, setFilteredType] = useState("");
   const [user, setUser] = useState({});
+  const loggedInUser = useSelector((state) => state.loggedInUser);
   const { Option } = Select;
 
   useEffect(() => {
@@ -120,8 +121,10 @@ function Favorites() {
             );
           })}
         </ul>
-      ) : (
+      ) : loggedInUser.userId ? (
         "Add activities to your favorites."
+      ) : (
+        "Please log in to add activities to your favorites."
       )}
     </div>
   );

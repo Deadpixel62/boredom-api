@@ -140,9 +140,11 @@ function Home() {
         {typeActivity.activity && (
           <Button
             onClick={() => {
-              !favActivities.includes(typeActivity)
-                ? dispatch(setFavoriteActivities(typeActivity))
-                : alert("Activity already in favorites!");
+              loggedInUser.userId
+                ? !favActivities.includes(typeActivity)
+                  ? dispatch(setFavoriteActivities(typeActivity))
+                  : alert("Activity already in favorites!")
+                : alert("Please log in to add favorites!");
             }}
           >
             add to favorites
@@ -201,9 +203,11 @@ function Home() {
         {priceActivity.activity && (
           <Button
             onClick={() => {
-              !favActivities.includes(priceActivity)
-                ? dispatch(setFavoriteActivities(priceActivity))
-                : alert("Activity already in favorites!");
+              loggedInUser.userId
+                ? !favActivities.includes(priceActivity)
+                  ? dispatch(setFavoriteActivities(priceActivity))
+                  : alert("Activity already in favorites!")
+                : alert("Please log in to add to favorites!");
             }}
           >
             add to favorites

@@ -26,7 +26,12 @@ const Reducer = (state = initialState, action) => {
       return { ...state, loggedInUser: action.payload };
 
     case "logout":
-      return { ...state, loggedInUser: {}, favCount: 0 };
+      return {
+        ...state,
+        loggedInUser: {},
+        favCount: 0,
+        favoriteActivities: [],
+      };
 
     case "setFavCount":
       console.log(action);
