@@ -46,7 +46,7 @@ const Reducer = (state = initialState, action) => {
 
     case "setFavoriteActivities":
       axios
-        .post("http://localhost:5000/addFav", action.payload, {
+        .post("https://boredom-client.herokuapp.com/addFav", action.payload, {
           headers: { Authorization: `Bearer ${myToken}` },
         })
         .then((res) => {
@@ -57,9 +57,13 @@ const Reducer = (state = initialState, action) => {
           };
           console.log(user);
           axios
-            .put(`http://localhost:5000/users/addFavorite`, user, {
-              headers: { Authorization: `Bearer ${myToken}` },
-            })
+            .put(
+              `https://boredom-client.herokuapp.com/users/addFavorite`,
+              user,
+              {
+                headers: { Authorization: `Bearer ${myToken}` },
+              }
+            )
             .then((res) => console.log(res))
             .catch((err) => console.log(err));
         })
@@ -82,7 +86,7 @@ const Reducer = (state = initialState, action) => {
 
       console.log(user);
       axios
-        .delete(`http://localhost:5000/users/removeFav`, {
+        .delete(`https://boredom-client.herokuapp.com/users/removeFav`, {
           headers: { Authorization: `Bearer ${myToken}` },
           data: user,
         })
