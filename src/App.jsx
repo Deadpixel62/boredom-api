@@ -21,10 +21,15 @@ function App() {
     if (activeUser) {
       const foundUser = JSON.parse(activeUser);
       dispatch(getActiveUser(foundUser));
-
       axios
-        .get(`https://boredom-client.herokuapp.com/user/${foundUser.userId}`)
-        .then((res) => dispatch(setFavCount(res.data)));
+        .get(`https://boredom-client.herokuapp.com/getUser`, {
+          headers: { Authorization: `Bearer ${foundUser.token}` },
+        })
+        .then((res) => {
+          setUser(res.data);
+          dispatch(setFavCount(res.data));
+        })
+        .catch((err) => console.log(err));
     }
   }, []);
 

@@ -1,0 +1,10 @@
+export const GETACTIVEUSER = "getActiveUser";
+export const LOGOUT = "logout";
+export const SETFAVCOUNT = "setFavCount";
+export const SETRANDOMACTIVITY = "setRandomActivity";
+export const SETTYPEACTIVITY = "setTypeActivity";
+export const SETPRICEACTIVITY = "setPriceActivity";
+export const SETFAVORITEACTIVITIES = "setFavoriteActivities";
+export const REMOVEFAV = "removeFav";
+export const STORAGEFAV = "storageFav";
+export const SETFAVTYPES = "setFavTypes";

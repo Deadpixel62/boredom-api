@@ -19,11 +19,14 @@ function Login() {
       const foundUser = JSON.parse(activeUser);
       dispatch(getActiveUser(foundUser));
       axios
-        .get(`https://boredom-client.herokuapp.com/user/${foundUser.userId}`)
+        .get(`https://boredom-client.herokuapp.com/getUser`, {
+          headers: { Authorization: `Bearer ${foundUser.token}` },
+        })
         .then((res) => {
           setUser(res.data);
           dispatch(setFavCount(res.data));
-        });
+        })
+        .catch((err) => console.log(err));
     }
   }, []);
 
@@ -38,8 +41,11 @@ function Login() {
         navigate("/");
         localStorage.setItem("user", JSON.stringify(res.data));
         axios
-          .get(`https://boredom-client.herokuapp.com/user/${res.data.userId}`)
+          .get(`https://boredom-client.herokuapp.com/getUser`, {
+            headers: { Authorization: `Bearer ${res.data.token}` },
+          })
           .then((res) => {
+            console.log("=====", res.data);
             setUser(res.data);
             dispatch(setFavCount(res.data));
           });

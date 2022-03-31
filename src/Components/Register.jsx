@@ -17,7 +17,9 @@ function Register() {
       const foundUser = JSON.parse(activeUser);
       dispatch(getActiveUser(foundUser));
       axios
-        .get(`https://boredom-client.herokuapp.com/user/${foundUser.userId}`)
+        .get(`https://boredom-client.herokuapp.com/getUser`, {
+          headers: { Authorization: `Bearer ${foundUser.token}` },
+        })
         .then((res) => setloggedIn(res.data));
     }
   }, []);

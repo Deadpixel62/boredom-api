@@ -1,4 +1,16 @@
 import axios from "axios";
+import {
+  GETACTIVEUSER,
+  LOGOUT,
+  SETFAVCOUNT,
+  SETRANDOMACTIVITY,
+  SETTYPEACTIVITY,
+  SETPRICEACTIVITY,
+  SETFAVORITEACTIVITIES,
+  REMOVEFAV,
+  STORAGEFAV,
+  SETFAVTYPES,
+} from "../constants";
 
 const initialState = {
   randomActivity: {},
@@ -10,22 +22,14 @@ const initialState = {
   favCount: 0,
 };
 
-const myData = function (data) {
-  let myId;
-  myId = data.newFav._id;
-  console.log(myId);
-  return myId;
-};
-
 const Reducer = (state = initialState, action) => {
   let myToken = state.loggedInUser.token;
 
   switch (action.type) {
-    case "getActiveUser":
-      console.log(action);
+    case GETACTIVEUSER:
       return { ...state, loggedInUser: action.payload };
 
-    case "logout":
+    case LOGOUT:
       return {
         ...state,
         loggedInUser: {},
@@ -33,45 +37,24 @@ const Reducer = (state = initialState, action) => {
         favoriteActivities: [],
       };
 
-    case "setFavCount":
-      console.log(action);
+    case SETFAVCOUNT:
       return { ...state, favCount: action.payload.favList.length };
 
-    case "setRandomActivity":
-      console.log(action.payload);
+    case SETRANDOMACTIVITY:
       return { ...state, randomActivity: action.payload };
 
-    case "setTypeActivity":
-      console.log(action.payload);
+    case SETTYPEACTIVITY:
       return { ...state, typeActivity: action.payload };
 
-    case "setPriceActivity":
-      console.log(action.payload);
+    case SETPRICEACTIVITY:
       return { ...state, priceActivity: action.payload };
 
-    case "setFavoriteActivities":
+    case SETFAVORITEACTIVITIES:
       axios
         .post("https://boredom-client.herokuapp.com/addFav", action.payload, {
           headers: { Authorization: `Bearer ${myToken}` },
         })
-        .then((res) => {
-          let activityId = myData(res.data);
-          let user = {
-            userId: state.loggedInUser.userId,
-            activityId,
-          };
-          console.log(user);
-          axios
-            .put(
-              `https://boredom-client.herokuapp.com/users/addFavorite`,
-              user,
-              {
-                headers: { Authorization: `Bearer ${myToken}` },
-              }
-            )
-            .then((res) => console.log(res))
-            .catch((err) => console.log(err));
-        })
+        .then((res) => console.log(res))
         .catch((err) => console.log(err));
 
       return {
@@ -80,18 +63,11 @@ const Reducer = (state = initialState, action) => {
         favCount: state.favCount + 1,
       };
 
-    case "removeFav":
-      console.log("===========================");
-      console.log(state.loggedInUser);
-
-      const user = {
-        userId: state.loggedInUser.userId,
-        activityId: action.payload._id,
-      };
-
+    case REMOVEFAV:
+      const user = { activityId: action.payload._id };
       console.log(user);
       axios
-        .delete(`https://boredom-client.herokuapp.com/users/removeFav`, {
+        .delete(`https://boredom-client.herokuapp.com/deleteFav`, {
           headers: { Authorization: `Bearer ${myToken}` },
           data: user,
         })
@@ -106,12 +82,10 @@ const Reducer = (state = initialState, action) => {
         favCount: state.favCount - 1,
       };
 
-    case "storageFav":
-      console.log(state.favoriteActivities);
+    case STORAGEFAV:
       return { ...state, favoriteActivities: action.payload };
 
-    case "setFavTypes":
-      console.log(action.payload);
+    case SETFAVTYPES:
       return { ...state, favTypes: action.payload };
 
     default:

@@ -21,7 +21,9 @@ function Favorites() {
     if (activeUser) {
       const foundUser = JSON.parse(activeUser);
       axios
-        .get(`https://boredom-client.herokuapp.com/user/${foundUser.userId}`)
+        .get(`http://localhost:5000/getUser`, {
+          headers: { Authorization: `Bearer ${foundUser.token}` },
+        })
         .then((res) => dispatch(storageFav(res.data.favList)));
     }
   }, []);
@@ -79,7 +81,7 @@ function Favorites() {
         id="typeForm"
         onSubmit={(e) => {
           e.preventDefault();
-          setFilteredFav(favActivities);
+
           setFilteredFav(
             favActivities.filter((item) => {
               return item.type.toLowerCase().includes(filteredType);

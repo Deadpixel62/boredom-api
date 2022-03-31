@@ -1,68 +1,81 @@
+import {
+  GETACTIVEUSER,
+  LOGOUT,
+  SETFAVCOUNT,
+  SETRANDOMACTIVITY,
+  SETTYPEACTIVITY,
+  SETPRICEACTIVITY,
+  SETFAVORITEACTIVITIES,
+  REMOVEFAV,
+  STORAGEFAV,
+  SETFAVTYPES,
+} from "../constants";
+
 export const getActiveUser = (user) => {
   return {
-    type: "getActiveUser",
+    type: GETACTIVEUSER,
     payload: user,
   };
 };
 
 export const logout = () => {
   return {
-    type: "logout",
+    type: LOGOUT,
   };
 };
 
 export const setFavCount = (user) => {
   return {
-    type: "setFavCount",
+    type: SETFAVCOUNT,
     payload: user,
   };
 };
 
 export const setRandomActivity = (activity) => {
   return {
-    type: "setRandomActivity",
+    type: SETRANDOMACTIVITY,
     payload: activity,
   };
 };
 
 export const setTypeActivity = (activity) => {
   return {
-    type: "setTypeActivity",
+    type: SETTYPEACTIVITY,
     payload: activity,
   };
 };
 
 export const setPriceActivity = (activity) => {
   return {
-    type: "setPriceActivity",
+    type: SETPRICEACTIVITY,
     payload: activity,
   };
 };
 
 export const setFavoriteActivities = (activity) => {
   return {
-    type: "setFavoriteActivities",
+    type: SETFAVORITEACTIVITIES,
     payload: activity,
   };
 };
 
 export const removeFav = (activity) => {
   return {
-    type: "removeFav",
+    type: REMOVEFAV,
     payload: activity,
   };
 };
 
 export const storageFav = (favList) => {
   return {
-    type: "storageFav",
+    type: STORAGEFAV,
     payload: favList,
   };
 };
 
 export const setFavTypes = (favType) => {
   return {
-    type: "setFavTypes",
+    type: SETFAVTYPES,
     payload: favType,
   };
 };

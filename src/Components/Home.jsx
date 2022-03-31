@@ -32,9 +32,16 @@ function Home() {
     if (activeUser) {
       const foundUser = JSON.parse(activeUser);
       dispatch(getActiveUser(foundUser));
+      console.log("=====", foundUser);
       axios
-        .get(`https://boredom-client.herokuapp.com/user/${foundUser.userId}`)
-        .then((res) => dispatch(setFavCount(res.data)));
+        .get(`http://localhost:5000/getUser`, {
+          headers: { Authorization: `Bearer ${foundUser.token}` },
+        })
+        .then((res) => {
+          setUser(res.data);
+          dispatch(setFavCount(res.data));
+        })
+        .catch((err) => console.log(err));
     }
   }, []);
 
@@ -142,7 +149,7 @@ function Home() {
         {typeActivity.activity && (
           <Button
             onClick={() => {
-              loggedInUser.userId
+              loggedInUser.token
                 ? !favActivities.includes(typeActivity)
                   ? dispatch(setFavoriteActivities(typeActivity))
                   : alert("Activity already in favorites!")
@@ -205,7 +212,7 @@ function Home() {
         {priceActivity.activity && (
           <Button
             onClick={() => {
-              loggedInUser.userId
+              loggedInUser.token
                 ? !favActivities.includes(priceActivity)
                   ? dispatch(setFavoriteActivities(priceActivity))
                   : alert("Activity already in favorites!")
