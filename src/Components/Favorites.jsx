@@ -21,7 +21,7 @@ function Favorites() {
     if (activeUser) {
       const foundUser = JSON.parse(activeUser);
       axios
-        .get(`http://localhost:5000/getUser`, {
+        .get(`https://boredom-client.herokuapp.com/getUser`, {
           headers: { Authorization: `Bearer ${foundUser.token}` },
         })
         .then((res) => dispatch(storageFav(res.data.favList)));
