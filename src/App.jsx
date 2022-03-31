@@ -10,6 +10,7 @@ import Register from "./Components/Register";
 import { getActiveUser, setFavCount } from "./actions";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { logout } from "./actions";
 
 function App() {
   const dispatch = useDispatch();
@@ -20,12 +21,14 @@ function App() {
     const activeUser = localStorage.getItem("user");
     if (activeUser) {
       const foundUser = JSON.parse(activeUser);
+      console.log("==>", foundUser);
       dispatch(getActiveUser(foundUser));
       axios
         .get(`https://boredom-client.herokuapp.com/getUser`, {
           headers: { Authorization: `Bearer ${foundUser.token}` },
         })
         .then((res) => {
+          console.log(res);
           setUser(res.data);
           dispatch(setFavCount(res.data));
         })

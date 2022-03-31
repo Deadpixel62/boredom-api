@@ -20,7 +20,11 @@ function Register() {
         .get(`https://boredom-client.herokuapp.com/getUser`, {
           headers: { Authorization: `Bearer ${foundUser.token}` },
         })
-        .then((res) => setloggedIn(res.data));
+        .then((res) => setloggedIn(res.data))
+        .catch((err) => {
+          console.log(err);
+          dispatch(logout());
+        });
     }
   }, []);
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { storageFav, removeFav, setFavTypes } from "../actions";
+import { storageFav, removeFav, logout } from "../actions";
 import { Button, Select, Input } from "antd";
 import axios from "axios";
 
@@ -24,7 +24,11 @@ function Favorites() {
         .get(`https://boredom-client.herokuapp.com/getUser`, {
           headers: { Authorization: `Bearer ${foundUser.token}` },
         })
-        .then((res) => dispatch(storageFav(res.data.favList)));
+        .then((res) => dispatch(storageFav(res.data.favList)))
+        .catch((err) => {
+          console.log(err);
+          dispatch(logout());
+        });
     }
   }, []);
 

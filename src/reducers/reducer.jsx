@@ -30,6 +30,7 @@ const Reducer = (state = initialState, action) => {
       return { ...state, loggedInUser: action.payload };
 
     case LOGOUT:
+      localStorage.clear();
       return {
         ...state,
         loggedInUser: {},

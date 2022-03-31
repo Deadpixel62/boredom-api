@@ -26,7 +26,10 @@ function Login() {
           setUser(res.data);
           dispatch(setFavCount(res.data));
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          console.log(err);
+          dispatch(logout());
+        });
     }
   }, []);
 
@@ -39,6 +42,7 @@ function Login() {
       .then((res) => {
         dispatch(getActiveUser(res.data));
         navigate("/");
+        localStorage.clear();
         localStorage.setItem("user", JSON.stringify(res.data));
         axios
           .get(`https://boredom-client.herokuapp.com/getUser`, {
@@ -50,7 +54,10 @@ function Login() {
             dispatch(setFavCount(res.data));
           });
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        dispatch(logout());
+      });
   };
 
   const handleLogout = () => {

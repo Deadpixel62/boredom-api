@@ -10,6 +10,7 @@ import {
   setFavTypes,
   getActiveUser,
   setFavCount,
+  logout,
 } from "../actions";
 import { Button, Select, Card } from "antd";
 
@@ -34,14 +35,16 @@ function Home() {
       dispatch(getActiveUser(foundUser));
       console.log("=====", foundUser);
       axios
-        .get(`http://localhost:5000/getUser`, {
+        .get(`https://boredom-client.herokuapp.com/getUser`, {
           headers: { Authorization: `Bearer ${foundUser.token}` },
         })
         .then((res) => {
-          setUser(res.data);
           dispatch(setFavCount(res.data));
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          console.log(err);
+          dispatch(logout());
+        });
     }
   }, []);
 
